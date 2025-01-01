@@ -6460,10 +6460,10 @@ const machine_t machines[] = {
             .block = CPU_BLOCK_NONE,
             .min_bus = 25000000,
             .max_bus = 33333333,
-            .min_voltage = 5000,
-            .max_voltage = 5000,
-            .min_multi = 1,
-            .max_multi = 2
+            .min_voltage = 0,
+            .max_voltage = 0,
+            .min_multi = 0,
+            .max_multi = 0
         },
         .bus_flags = MACHINE_PS2,
         .flags = MACHINE_IDE | MACHINE_VIDEO,
