@@ -176,24 +176,6 @@ machine_at_av4_init(const machine_t *model)
 }
 
 int
-machine_at_dell4xxp_init(const machine_t *model)
-{
-    int ret;
-    ret = bios_load_linear("roms/machines/dell4xxp/dell-425s-np-a02-m27c1001.bin",
-                           0x000e0000, 131072, 0);
-    if (bios_only || !ret)
-        return ret;
-    machine_at_common_init(model);
-    device_add(&sis_85c460_device);
-    device_add(&keyboard_ps2_ami_pci_device);
-    device_add(&ide_isa_device);
-    device_add(&fdc37c651_ide_device);
-    if (gfxcard[0] == VID_INTERNAL)
-        device_add(&gd5428_onboard_device);
-    return ret;
-}
-
-int
 machine_at_valuepoint433_init(const machine_t *model) // hangs without the PS/2 mouse
 {
     int ret;
@@ -2404,5 +2386,23 @@ machine_at_cougar_init(const machine_t *model)
     if (fdc_current[0] == FDC_INTERNAL)
         device_add(&fdc_at_device);
 
+    return ret;
+}
+
+int
+machine_at_dell4xxp_init(const machine_t *model)
+{
+    int ret;
+    ret = bios_load_linear("roms/machines/dell4xxp/dell-425s-np-a02-m27c1001.bin",
+                           0x000e0000, 131072, 0);
+    if (bios_only || !ret)
+        return ret;
+    machine_at_common_init(model);
+    device_add(&sis_85c460_device);
+    device_add(&keyboard_ps2_ami_pci_device);
+    device_add(&ide_isa_device);
+    device_add(&fdc37c651_ide_device);
+    if (gfxcard[0] == VID_INTERNAL)
+        device_add(&gd5428_onboard_device);
     return ret;
 }
