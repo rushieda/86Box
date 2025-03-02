@@ -674,6 +674,7 @@ extern int machine_at_p54sps_init(const machine_t *);
 
 extern int machine_at_ms5109_init(const machine_t *);
 extern int machine_at_torino_init(const machine_t *);
+extern int machine_at_bravo_lc_init(const machine_t *);
 
 extern int machine_at_hot539_init(const machine_t *);
 

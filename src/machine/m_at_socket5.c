@@ -609,6 +609,34 @@ machine_at_torino_init(const machine_t *model)
 }
 
 int
+machine_at_bravo_lc_init(const machine_t *model)
+{
+    int ret;
+
+    ret = bios_load_linear("roms/machines/bravo_lc/sst29ee010.bin",
+                           0x000e0000, 131072, 0);
+
+    if (bios_only || !ret)
+        return ret;
+
+    machine_at_common_init_ex(model, 2);
+
+    pci_init(PCI_CONFIG_TYPE_1 | FLAG_TRC_CONTROLS_CPURST);
+    pci_register_slot(0x00, PCI_CARD_NORTHBRIDGE, 0, 0, 0, 0);
+    pci_register_slot(0x01, PCI_CARD_SOUTHBRIDGE, 0, 0, 0, 0);
+    pci_register_slot(0x0B, PCI_CARD_VIDEO,       0, 0, 0, 0); /* not emulated yet */
+    pci_register_slot(0x11, PCI_CARD_NORMAL,      1, 3, 2, 4);
+    pci_register_slot(0x13, PCI_CARD_NORMAL,      2, 1, 4, 3);
+
+    device_add(&sis_5511_device);
+    device_add(&keyboard_ps2_ami_device);
+    device_add(&fdc37c665_device);
+    device_add(&sst_flash_29ee010_device);
+
+    return ret;
+}
+
+int
 machine_at_hot539_init(const machine_t *model)
 {
     int ret;
