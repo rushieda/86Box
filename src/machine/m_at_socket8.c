@@ -108,6 +108,38 @@ machine_at_p6rp4_init(const machine_t *model)
 }
 
 int
+machine_at_po6000_init(const machine_t *model)
+{
+    int ret;
+
+    ret = bios_load_linear("roms/machines/po6000/405F05C.ROM",
+                           0x000e0000, 131072, 0);
+
+    if (bios_only || !ret)
+        return ret;
+
+    machine_at_common_init_ex(model, 2);
+    
+    pci_init(PCI_CONFIG_TYPE_1);
+    pci_register_slot(0x19, PCI_CARD_NORTHBRIDGE,     0, 0, 0, 0);
+    pci_register_slot(0x14, PCI_CARD_NORTHBRIDGE_SEC, 0, 0, 0, 0);
+    pci_register_slot(0x02, PCI_CARD_SOUTHBRIDGE,     0, 0, 0, 0);
+    pci_register_slot(0x08, PCI_CARD_IDE,             0, 0, 0, 0);
+    pci_register_slot(0x07, PCI_CARD_NORMAL,          1, 2, 3, 4);
+    pci_register_slot(0x06, PCI_CARD_NORMAL,          2, 3, 4, 1);
+    pci_register_slot(0x05, PCI_CARD_NORMAL,          3, 4, 1, 2);
+    pci_register_slot(0x04, PCI_CARD_NORMAL,          4, 1, 2, 3);
+    device_add(&i450kx_device);
+    device_add(&sio_zb_device);
+    device_add(&ide_cmd646_device);
+    device_add(&keyboard_ps2_ami_pci_device);
+    device_add(&pc87306_device);
+    device_add(&sst_flash_29ee010_device);
+
+    return ret;
+}
+
+int
 machine_at_686nx_init(const machine_t *model)
 {
     int ret;
