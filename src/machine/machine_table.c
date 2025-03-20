@@ -14473,7 +14473,7 @@ const machine_t machines[] = {
     },
 
     /* 440FX */
-    /* Has a SM(S)C FDC37C935APM Super I/O chip with on-chip KBC
+    /* Has an SM(S)C FDC37C935APM Super I/O chip with on-chip KBC
        with Phoenix MultiKey/42 (version 1.38) KBC firmware. */
     {
         .name = "[i440FX] Acer V62X",
@@ -14502,7 +14502,7 @@ const machine_t machines[] = {
             .max = 1048576,
             .step = 8192
         },
-        .nvrmask = 127,
+        .nvrmask = 255,
         .kbc_device = NULL,
         .kbc_p1 = 0xff,
         .gpio = 0xffffffff,

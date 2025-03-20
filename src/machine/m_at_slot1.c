@@ -63,7 +63,7 @@ machine_at_acerv62x_init(const machine_t *model)
     pci_register_slot(0x12, PCI_CARD_NORMAL,      4, 1, 2, 3);
     device_add(&i440fx_device);
     device_add(&piix3_device);
-    device_add(&fdc37c935_no_nvr_device);
+    device_add(&fdc37c935_device);
     device_add(&sst_flash_29ee020_device);
 
     return ret;
