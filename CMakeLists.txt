@@ -36,7 +36,7 @@ if(MUNT_EXTERNAL)
 endif()
 
 project(86Box
-    VERSION 4.3
+    VERSION 5.0
     DESCRIPTION "Emulator of x86-based systems"
     HOMEPAGE_URL "https://86box.net"
     LANGUAGES C CXX)
@@ -142,6 +142,18 @@ if((ARCH STREQUAL "arm64") OR (ARCH STREQUAL "arm"))
     set(NEW_DYNAREC ON)
 else()
     option(NEW_DYNAREC "Use the PCem v15 (\"new\") dynamic recompiler" OFF)
+endif()
+
+if(CMAKE_SYSTEM_NAME STREQUAL "NetBSD")
+    option(AUDIO4 "Use audio(4) as sound backend" ON)
+else()
+    set(AUDIO4 OFF)
+endif()
+
+if(CMAKE_SYSTEM_NAME STREQUAL "OpenBSD")
+    option(SNDIO "Use sndio as sound backend" ON)
+else()
+    set(SNDIO OFF)
 endif()
 
 if(WIN32)

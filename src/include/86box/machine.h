@@ -208,7 +208,9 @@ enum {
     MACHINE_CHIPSET_ALI_ALADDIN_V,
     MACHINE_CHIPSET_ALI_ALADDIN_PRO_II,
     MACHINE_CHIPSET_SCAT,
+    MACHINE_CHIPSET_SCAT_SX,
     MACHINE_CHIPSET_NEAT,
+    MACHINE_CHIPSET_NEAT_SX,
     MACHINE_CHIPSET_CT_386,
     MACHINE_CHIPSET_CT_CS4031,
     MACHINE_CHIPSET_CONTAQ_82C596,
@@ -439,6 +441,8 @@ extern int machine_at_ibmatquadtel_init(const machine_t *); // IBM AT with Quadt
 
 extern int machine_at_ibmxt286_init(const machine_t *);
 
+extern int machine_at_pb286_init(const machine_t *);
+
 extern int machine_at_siemens_init(const machine_t *); // Siemens PCD-2L. N82330 discrete machine. It segfaults in some places
 
 extern int machine_at_wellamerastar_init(const machine_t *); // Wells American A*Star with custom award BIOS 
@@ -483,6 +487,7 @@ extern int machine_at_adi386sx_init(const machine_t *);
 extern int machine_at_cmdsl386sx16_init(const machine_t *);
 extern int machine_at_cmdsl386sx25_init(const machine_t *);
 extern int machine_at_dataexpert386sx_init(const machine_t *);
+extern int machine_at_if386sx_init(const machine_t *);
 extern int machine_at_spc6033p_init(const machine_t *);
 extern int machine_at_wd76c10_init(const machine_t *);
 extern int machine_at_arb1374_init(const machine_t *);
@@ -566,6 +571,7 @@ extern int machine_at_r418_init(const machine_t *);
 extern int machine_at_ls486e_init(const machine_t *);
 extern int machine_at_4dps_init(const machine_t *);
 extern int machine_at_ms4144_init(const machine_t *);
+extern int machine_at_acerp3_init(const machine_t *);
 extern int machine_at_4saw2_init(const machine_t *);
 extern int machine_at_m4li_init(const machine_t *);
 extern int machine_at_alfredo_init(const machine_t *);

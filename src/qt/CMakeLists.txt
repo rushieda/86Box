@@ -137,6 +137,11 @@ add_library(ui STATIC
     qt_joystickconfiguration.cpp
     qt_joystickconfiguration.hpp
     qt_joystickconfiguration.ui
+    qt_keybind.cpp
+    qt_keybind.hpp
+    qt_keybind.ui
+    qt_singlekeyseqedit.cpp
+    qt_singlekeyseqedit.hpp
 
     qt_filefield.cpp
     qt_filefield.hpp
@@ -194,6 +199,9 @@ add_library(ui STATIC
     qt_openglshaderconfig.hpp
     qt_openglshaderconfig.cpp
     qt_openglshaderconfig.ui
+
+    qt_iconindicators.hpp
+    qt_iconindicators.cpp
 )
 
 if(RTMIDI)
@@ -202,6 +210,10 @@ endif()
 
 if(WACOM)
     target_compile_definitions(ui PRIVATE USE_WACOM)
+endif()
+
+if(CDROM_MITSUMI)
+    target_compile_definitions(ui PRIVATE USE_CDROM_MITSUMI)
 endif()
 
 if(WIN32)

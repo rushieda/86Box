@@ -641,6 +641,39 @@ machine_at_cmdsl386sx16_init(const machine_t *model)
     return ret;
 }
 
+int
+machine_at_if386sx_init(const machine_t *model)
+{
+    int ret;
+
+    ret = bios_load_interleaved("roms/machines/if386sx/OKI_IF386SX_odd.bin",
+                                "roms/machines/if386sx/OKI_IF386SX_even.bin",
+                                0x000f0000, 65536, 0);
+
+    if (bios_only || !ret)
+        return ret;
+
+    machine_at_common_init_ex(model, 2);
+    device_add(&amstrad_megapc_nvr_device); /* NVR that is initialized to all 0x00's. */
+
+    device_add(&keyboard_at_phoenix_device);
+
+    device_add(&neat_sx_device);
+
+    device_add(&if386jega_device);
+
+    if (fdc_current[0] == FDC_INTERNAL)
+        device_add(&fdc_at_device);
+
+    /*
+       One serial port - on the real hardware IF386AX, it is on the VL 16C451,
+       alognside the bidirectional parallel port.
+     */
+    device_add_inst(&ns16450_device, 1);
+
+    return ret;
+}
+
 static void
 machine_at_scamp_common_init(const machine_t *model, int is_ps2)
 {

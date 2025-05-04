@@ -171,11 +171,11 @@ typedef struct svga_t {
     latch_t  latch;
 
     pc_timer_t timer;
-    pc_timer_t timer8514;
+    pc_timer_t timer_8514;
     pc_timer_t timer_xga;
 
     double clock;
-    double clock8514;
+    double clock_8514;
     double clock_xga;
 
     double multiplier;
@@ -310,6 +310,13 @@ typedef struct svga_t {
     void *  ext8514;
     void *  clock_gen8514;
     void *  xga;
+
+    /* If set then another device is driving the monitor output and the EGA
+      card should not attempt to display anything. */
+    void       (*render_override)(void *priv);
+    void *     priv_parent;
+
+    void *     local;
 } svga_t;
 
 extern void     ibm8514_set_poll(svga_t *svga);

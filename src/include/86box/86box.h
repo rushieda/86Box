@@ -20,9 +20,14 @@
 #ifndef EMU_86BOX_H
 #define EMU_86BOX_H
 
+#if defined(__NetBSD__) || defined(__OpenBSD__)
+/* Doesn't compile on NetBSD/OpenBSD without this include */
+#include <stdarg.h>
+#endif
+
 /* Configuration values. */
 #define GFXCARD_MAX  2
-#define SERIAL_MAX   7
+#define SERIAL_MAX   8
 #define PARALLEL_MAX 4
 #define SCREEN_RES_X 640
 #define SCREEN_RES_Y 480
@@ -39,8 +44,8 @@
 /* Max UUID Length */
 #define MAX_UUID_LEN 64
 
-/* Default language 0xFFFF = from system, 0x409 = en-US */
-#define DEFAULT_LANGUAGE 0x0409
+/* Default language code */
+#define DEFAULT_LANGUAGE "system"
 
 #define POSTCARDS_NUM 4
 #define POSTCARD_MASK (POSTCARDS_NUM - 1)
@@ -79,8 +84,6 @@ extern "C" {
 #endif
 
 /* Global variables. */
-extern uint32_t lang_sys; /* (-) system language code */
-
 extern int dump_on_exit;        /* (O) dump regs on exit*/
 extern int start_in_fullscreen; /* (O) start in fullscreen */
 #ifdef _WIN32
@@ -112,8 +115,7 @@ extern int      window_remember;
 extern int      vid_resize;                 /* (C) allow resizing */
 extern int      invert_display;             /* (C) invert the display */
 extern int      suppress_overscan;          /* (C) suppress overscans */
-extern uint32_t lang_id;                    /* (C) language code identifier */
-extern char     icon_set[256];              /* (C) iconset identifier */
+extern int      lang_id;                    /* (C) language id */
 extern int      scale;                      /* (C) screen scale factor */
 extern int      dpi_scale;                  /* (C) DPI scaling of the emulated screen */
 extern int      vid_api;                    /* (C) video renderer */
@@ -170,14 +172,6 @@ extern int    pit_mode;                     /* (C) force setting PIT mode */
 extern int    fm_driver;                    /* (C) select FM sound driver */
 extern int    hook_enabled;                 /* (C) Keyboard hook is enabled */
 
-/* Keyboard variables for future key combination redefinition. */
-extern uint16_t key_prefix_1_1;
-extern uint16_t key_prefix_1_2;
-extern uint16_t key_prefix_2_1;
-extern uint16_t key_prefix_2_2;
-extern uint16_t key_uncapture_1;
-extern uint16_t key_uncapture_2;
-
 extern char exe_path[2048];     /* path (dir) of executable */
 extern char usr_path[1024];     /* path (dir) of user data */
 extern char cfg_path[1024];     /* full path of config file */
@@ -194,15 +188,12 @@ extern __thread int is_cpu_thread; /* Is this the CPU thread? */
 #ifdef HAVE_STDARG_H
 extern void pclog_ex(const char *fmt, va_list ap);
 extern void fatal_ex(const char *fmt, va_list ap);
+extern void warning_ex(const char *fmt, va_list ap);
 #endif
 extern void pclog_toggle_suppr(void);
-#ifdef _MSC_VER
-extern void pclog(const char *fmt, ...);
-extern void fatal(const char *fmt, ...);
-#else
 extern void pclog(const char *fmt, ...) __attribute__ ((format (printf, 1, 2)));
 extern void fatal(const char *fmt, ...) __attribute__ ((format (printf, 1, 2)));
-#endif
+extern void warning(const char *fmt, ...) __attribute__ ((format (printf, 1, 2)));
 extern void set_screen_size(int x, int y);
 extern void set_screen_size_monitor(int x, int y, int monitor_index);
 extern void reset_screen_size(void);
@@ -244,6 +235,17 @@ extern int    framecountx;
 
 extern volatile int     cpu_thread_run;
 extern          uint8_t postcard_codes[POSTCARDS_NUM];
+
+// Accelerator key structure, defines, helper functions
+struct accelKey {
+	char name[64];
+	char desc[64];
+	char seq[64];
+};
+#define NUM_ACCELS 8
+extern struct accelKey acc_keys[NUM_ACCELS];
+extern struct accelKey def_acc_keys[NUM_ACCELS];
+extern int FindAccelerator(const char *name);
 
 #ifdef __cplusplus
 }

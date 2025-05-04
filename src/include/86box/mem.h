@@ -448,6 +448,7 @@ extern void mem_flush_write_page(uint32_t addr, uint32_t virt);
 extern void mem_reset_page_blocks(void);
 
 extern void flushmmucache(void);
+extern void flushmmucache_write(void);
 extern void flushmmucache_pc(void);
 extern void flushmmucache_nopc(void);
 
@@ -458,6 +459,7 @@ extern void mem_a20_recalc(void);
 
 extern void mem_init(void);
 extern void mem_close(void);
+extern void mem_zero(void);
 extern void mem_reset(void);
 extern void mem_remap_top_ex(int kb, uint32_t start);
 extern void mem_remap_top_ex_nomid(int kb, uint32_t start);

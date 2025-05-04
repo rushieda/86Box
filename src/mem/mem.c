@@ -226,6 +226,21 @@ flushmmucache(void)
 }
 
 void
+flushmmucache_write(void)
+{
+    for (uint16_t c = 0; c < 256; c++) {
+        if (writelookup[c] != (int) 0xffffffff) {
+            page_lookup[writelookup[c]]  = NULL;
+            page_lookupp[writelookup[c]] = 4;
+            writelookup2[writelookup[c]] = LOOKUP_INV;
+            writelookupp[writelookup[c]] = 4;
+            writelookup[c]               = 0xffffffff;
+        }
+    }
+    mmuflush++;
+}
+
+void
 flushmmucache_pc(void)
 {
     mmuflush++;
@@ -1518,10 +1533,28 @@ readmemql(uint32_t addr)
     addr = addr64a[0] & rammask;
 
     map = read_mapping[addr >> MEM_GRANULARITY_BITS];
-    if (map && map->read_l)
-        return map->read_l(addr, map->priv) | ((uint64_t) map->read_l(addr + 4, map->priv) << 32);
 
-    return readmemll(addr) | ((uint64_t) readmemll(addr + 4) << 32);
+    if (map && map->read_l)
+        return map->read_l(addr, map->priv) |
+               ((uint64_t) map->read_l(addr + 4, map->priv) << 32);
+
+    if (map && map->read_w)
+        return map->read_w(addr, map->priv) |
+               ((uint64_t) map->read_w(addr + 2, map->priv) << 16) |
+               ((uint64_t) map->read_w(addr + 4, map->priv) << 32) |
+               ((uint64_t) map->read_w(addr + 6, map->priv) << 48);
+
+    if (map && map->read_b)
+        return map->read_b(addr, map->priv) |
+               ((uint64_t) map->read_b(addr + 1, map->priv) << 8) |
+               ((uint64_t) map->read_b(addr + 2, map->priv) << 16) |
+               ((uint64_t) map->read_b(addr + 3, map->priv) << 24) |
+               ((uint64_t) map->read_b(addr + 4, map->priv) << 32) |
+               ((uint64_t) map->read_b(addr + 5, map->priv) << 40) |
+               ((uint64_t) map->read_b(addr + 6, map->priv) << 48) |
+               ((uint64_t) map->read_b(addr + 7, map->priv) << 56);
+
+    return 0xffffffffffffffffULL;
 }
 
 void
@@ -2759,6 +2792,17 @@ mem_init_ram_mapping(mem_mapping_t *mapping, uint32_t base, uint32_t size)
     mem_add_ram_mapping(mapping, base, size);
 }
 
+void
+mem_zero(void)
+{
+#if (!(defined __amd64__ || defined _M_X64 || defined __aarch64__ || defined _M_ARM64))
+    if (mem_size > 1048576)
+        memset(ram2, 0x00, ram2_size + 16);
+#endif
+
+    memset(ram, 0x00, ram_size + 16);
+}
+
 /* Reset the memory state. */
 void
 mem_reset(void)
@@ -2834,8 +2878,10 @@ mem_reset(void)
             return;
         }
         memset(ram, 0x00, ram_size + 16);
+#if (!(defined __amd64__ || defined _M_X64 || defined __aarch64__ || defined _M_ARM64))
         if (mem_size > 1048576)
             ram2 = &(ram[1 << 30]);
+#endif
     }
 
     /*
@@ -2930,6 +2976,7 @@ mem_reset(void)
         else if (cpu_16bitbus && is6117 && mem_size > 65408)
             mem_init_ram_mapping(&ram_high_mapping, 0x100000, (65408 - 1024) * 1024);
         else {
+#if (!(defined __amd64__ || defined _M_X64 || defined __aarch64__ || defined _M_ARM64))
             if (mem_size > 1048576) {
                 mem_init_ram_mapping(&ram_high_mapping, 0x100000, (1048576 - 1024) * 1024);
 
@@ -2942,6 +2989,9 @@ mem_reset(void)
                                 ram2, MEM_MAPPING_INTERNAL, NULL);
             } else
                 mem_init_ram_mapping(&ram_high_mapping, 0x100000, (mem_size - 1024) * 1024);
+#else
+            mem_init_ram_mapping(&ram_high_mapping, 0x100000, (mem_size - 1024) * 1024);
+#endif
         }
     }
 
