@@ -218,6 +218,35 @@ machine_at_ma30d_init(const machine_t *model)
 }
 
 int
+machine_at_deskpro_ep_440ex_init(const machine_t *model)
+{
+    int ret;
+
+    ret = bios_load_linear_inverted("roms/machines/deskpro_ep_440ex/CPQ046CH.BIN",
+                           0x000c0000, 262144, 0);
+
+    if (bios_only || !ret)
+        return ret;
+
+    machine_at_common_init_ex(model, 2);
+
+    pci_init(PCI_CONFIG_TYPE_1);
+    pci_register_slot(0x00, PCI_CARD_NORTHBRIDGE, 0, 0, 0, 0);
+    pci_register_slot(0x14, PCI_CARD_SOUTHBRIDGE, 0, 0, 0, 4);
+    pci_register_slot(0x09, PCI_CARD_NORMAL,      1, 2, 3, 4);
+    pci_register_slot(0x0A, PCI_CARD_NORMAL,      2, 3, 4, 1);
+    pci_register_slot(0x01, PCI_CARD_AGPBRIDGE,   3, 4, 0, 0);
+    device_add(&i440ex_device);
+    device_add(&piix4_device);
+    device_add(&keyboard_ps2_ami_pci_device);
+    device_add(&pc87309_15c_device);
+    device_add(&intel_flash_bxt_device);
+    spd_register(SPD_TYPE_SDRAM, 0x03, 256);
+
+    return ret;
+}
+
+int
 machine_at_p6i440e2_init(const machine_t *model)
 {
     int ret;
@@ -480,36 +509,6 @@ machine_at_atc6310bxii_init(const machine_t *model)
     device_add(&w83977ef_device);
     device_add(&sst_flash_39sf020_device);
     spd_register(SPD_TYPE_SDRAM, 0x7, 256);
-
-    return ret;
-}
-
-int
-machine_at_deskpro_ep_init(const machine_t *model)
-{
-    int ret;
-
-    ret = bios_load_linear("roms/machines/deskpro_ep/COMPAQEP.BIN",
-                           0x000c0000, 262144, 0);
-
-    if (bios_only || !ret)
-        return ret;
-
-    machine_at_common_init_ex(model, 2);
-
-    pci_init(PCI_CONFIG_TYPE_1);
-    pci_register_slot(0x0D, PCI_CARD_NORMAL,      1, 2, 3, 4); /* Slot 01 */
-    pci_register_slot(0x0E, PCI_CARD_NORMAL,      2, 3, 4, 1); /* Slot 02 */
-    pci_register_slot(0x0F, PCI_CARD_NORMAL,      3, 4, 1, 2); /* Slot 03 */
-    pci_register_slot(0x10, PCI_CARD_NORMAL,      4, 1, 2, 3); /* Slot 04 */
-    pci_register_slot(0x14, PCI_CARD_SOUTHBRIDGE, 0, 0, 0, 4);
-    pci_register_slot(0x01, PCI_CARD_AGPBRIDGE,   3, 4, 0, 0);
-    device_add(&i440bx_device);
-    device_add(&piix4e_device);
-    device_add(&keyboard_ps2_ami_pci_device);
-    device_add(&pc87309_15c_device);
-    device_add(&intel_flash_bxt_device);
-    spd_register(SPD_TYPE_SDRAM, 0xF, 256);
 
     return ret;
 }

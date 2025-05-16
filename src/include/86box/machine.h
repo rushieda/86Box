@@ -820,6 +820,7 @@ extern int machine_at_spitfire_init(const machine_t *);
 
 extern int machine_at_ma30d_init(const machine_t *);
 
+extern int machine_at_deskpro_ep_440ex_init(const machine_t *);
 extern int machine_at_p6i440e2_init(const machine_t *);
 
 extern int machine_at_p2bls_init(const machine_t *);
@@ -829,7 +830,6 @@ extern int machine_at_bf6_init(const machine_t *);
 extern int machine_at_bx6_init(const machine_t *);
 extern int machine_at_ax6bc_init(const machine_t *);
 extern int machine_at_atc6310bxii_init(const machine_t *);
-extern int machine_at_deskpro_ep_init(const machine_t *);
 extern int machine_at_686bx_init(const machine_t *);
 extern int machine_at_s1846_init(const machine_t *);
 extern int machine_at_p6sba_init(const machine_t *);
