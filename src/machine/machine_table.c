@@ -15187,7 +15187,7 @@ const machine_t machines[] = {
             .max_multi = 8.0
         },
         .bus_flags = MACHINE_PS2_AGP | MACHINE_BUS_USB,
-        .flags = MACHINE_IDE_DUAL | MACHINE_APM | MACHINE_ACPI | MACHINE_USB, /* Has internal video: ATI Rage IIc AGP, and ethernet: 3Com 3C905B-TX */
+        .flags = MACHINE_IDE_DUAL | MACHINE_APM | MACHINE_ACPI | MACHINE_USB, /* Has internal video: ATI Rage IIc AGP, and sound: Crystal CS4236B, and ethernet: 3Com 3C905B-TX */
         .ram = {
             .min = 8192,
             .max = 262144,
@@ -15202,7 +15202,7 @@ const machine_t machines[] = {
         .fdc_device = NULL,
         .sio_device = NULL,
         .vid_device = NULL,
-        .snd_device = NULL,
+        .snd_device = &cs4236b_onboard_device,
         .net_device = NULL
     },
     /* Has a Winbond W83977TF Super I/O chip with on-chip KBC with AMIKey-2 KBC

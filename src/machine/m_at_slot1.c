@@ -241,10 +241,14 @@ machine_at_optiplex_e1_init(const machine_t *model)
     device_add(&piix4e_device);
     device_add(&keyboard_ps2_ami_pci_device);
     device_add(&pc87309_device);
-    device_add(&intel_flash_bxt_device);
+    device_add(&intel_flash_bxt_device);   
     spd_register(SPD_TYPE_SDRAM, 0x7, 256);
-    device_add(&lm75_1_4a_device);
 
+    if (sound_card_current[0] == SOUND_INTERNAL) {
+        device_add(machine_get_snd_device(machine));
+        device_add(&cs4236b_onboard_device);
+    }
+    
     return ret;
 }
 
