@@ -218,6 +218,37 @@ machine_at_ma30d_init(const machine_t *model)
 }
 
 int
+machine_at_optiplex_e1_init(const machine_t *model)
+{
+    int ret;
+
+    ret = bios_load_linear("roms/machines/optiplex_e1/DELL.ROM",
+                           0x000c0000, 262144, 0);
+
+    if (bios_only || !ret)
+        return ret;
+
+    machine_at_common_init_ex(model, 2);
+
+    pci_init(PCI_CONFIG_TYPE_1);
+    pci_register_slot(0x00, PCI_CARD_NORTHBRIDGE, 1, 2, 3, 4);
+    pci_register_slot(0x0D, PCI_CARD_NORMAL,      2, 1, 3, 4);
+    pci_register_slot(0x0E, PCI_CARD_NORMAL,      3, 4, 2, 1);
+    pci_register_slot(0x11, PCI_CARD_NETWORK,     4, 0, 0, 0); /* 3C905B-TX? */
+    pci_register_slot(0x07, PCI_CARD_SOUTHBRIDGE, 0, 0, 0, 4);
+    pci_register_slot(0x01, PCI_CARD_AGPBRIDGE,   1, 2, 3, 4);
+    device_add(&i440ex_device);
+    device_add(&piix4e_device);
+    device_add(&keyboard_ps2_ami_pci_device);
+    device_add(&pc87309_device);
+    device_add(&intel_flash_bxt_device);
+    spd_register(SPD_TYPE_SDRAM, 0x7, 256);
+    device_add(&lm75_1_4a_device);
+
+    return ret;
+}
+
+int
 machine_at_p6i440e2_init(const machine_t *model)
 {
     int ret;
