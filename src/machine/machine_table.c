@@ -16783,9 +16783,9 @@ const machine_t machines[] = {
         .bus_flags = MACHINE_PS2_AGP | MACHINE_BUS_USB,
         .flags = MACHINE_IDE_DUAL | MACHINE_APM | MACHINE_ACPI | MACHINE_GAMEPORT | MACHINE_USB | MACHINE_SOUND,
         .ram = {
-            .min = 16384,
+            .min = 8192,
             .max = 1572864,
-            .step = 16384
+            .step = 8192
         },
         .nvrmask = 255,
         .kbc_device = NULL,
@@ -16824,9 +16824,9 @@ const machine_t machines[] = {
         .bus_flags = MACHINE_PS2_A97 | MACHINE_BUS_USB,
         .flags = MACHINE_IDE_DUAL | MACHINE_AG | MACHINE_APM | MACHINE_ACPI | MACHINE_GAMEPORT | MACHINE_USB,
         .ram = {
-            .min = 16384,
+            .min = 8192,
             .max = 3145728,
-            .step = 16384
+            .step = 8192
         },
         .nvrmask = 255,
         .kbc_device = NULL,
@@ -16865,9 +16865,9 @@ const machine_t machines[] = {
         .bus_flags = MACHINE_PS2_NOI97 | MACHINE_BUS_USB, /* Has Asus-proprietary LAN/SCSI slot */
         .flags = MACHINE_IDE_DUAL | MACHINE_SOUND | MACHINE_APM | MACHINE_ACPI | MACHINE_GAMEPORT | MACHINE_USB,
         .ram = {
-            .min = 16384,
+            .min = 8192,
             .max = 4194304,
-            .step = 16384
+            .step = 8192
         },
         .nvrmask = 255,
         .kbc_device = NULL,
