@@ -16356,7 +16356,7 @@ const machine_t machines[] = {
             .min_voltage = 1800,
             .max_voltage = 3500,
             .min_multi = 1.5,
-            .max_multi = 6.5
+            .max_multi = 8.0
         },
         .bus_flags = MACHINE_PS2_AGP | MACHINE_BUS_USB,
         .flags = MACHINE_IDE_DUAL | MACHINE_APM | MACHINE_ACPI | MACHINE_USB, /* Machine has internal SCSI */
@@ -16397,7 +16397,7 @@ const machine_t machines[] = {
             .min_voltage = 1800,
             .max_voltage = 3500,
             .min_multi = 1.5,
-            .max_multi = 6.0
+            .max_multi = 8.0
         },
         .bus_flags = MACHINE_PS2_AGP | MACHINE_BUS_USB,
         .flags = MACHINE_IDE_DUAL | MACHINE_APM | MACHINE_ACPI | MACHINE_USB,
