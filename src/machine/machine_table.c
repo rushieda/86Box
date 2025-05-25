@@ -16435,13 +16435,13 @@ const machine_t machines[] = {
         .gpio_acpi_handler = NULL,
         .cpu = {
             .package = CPU_PKG_SOCKET370,
-            .block = CPU_BLOCK_NONE,
+            .block = CPU_BLOCK(CPU_CYRIX3S),
             .min_bus = 66666667,
-            .max_bus = 100000000,
+            .max_bus = 83333333, /* has a jumper for 100MHz although 440LX can't reliably overclock up to that */
             .min_voltage = 1800,
             .max_voltage = 3500,
-            .min_multi = MACHINE_MULTIPLIER_FIXED,
-            .max_multi = MACHINE_MULTIPLIER_FIXED,
+            .min_multi = 1.5,
+            .max_multi = 8.0, /* assumed */
         },
         .bus_flags = MACHINE_PS2_AGP | MACHINE_BUS_USB,
         .flags = MACHINE_IDE_DUAL | MACHINE_APM | MACHINE_ACPI | MACHINE_USB,
@@ -16487,7 +16487,7 @@ const machine_t machines[] = {
             .max_multi = 8.0 /* limits assumed */
         },
         .bus_flags = MACHINE_PS2_PCI | MACHINE_BUS_USB, /* Machine has EISA, possibly for a riser? */
-                                                        /* Yes, that's a rise slot, not EISA. */
+                                                        /* Yes, that's a riser slot, not EISA. */
         .flags = MACHINE_IDE_DUAL | MACHINE_APM | MACHINE_ACPI | MACHINE_USB | MACHINE_VIDEO, /* Machine has internal video: C&T B69000, sound: ESS ES1938S and NIC: Realtek RTL8139C */
         .ram = {
             .min = 8192,
@@ -16604,9 +16604,9 @@ const machine_t machines[] = {
         .gpio_acpi_handler = NULL,
         .cpu = {
             .package = CPU_PKG_SOCKET370,
-            .block = CPU_BLOCK_NONE,
+            .block = CPU_BLOCK(CPU_CYRIX3S),
             .min_bus = 66666667,
-            .max_bus = 100000000,
+            .max_bus = 150000000,
             .min_voltage = 1800,
             .max_voltage = 3500,
             .min_multi = 1.5,
@@ -16649,7 +16649,7 @@ const machine_t machines[] = {
             .package = CPU_PKG_SOCKET370,
             .block = CPU_BLOCK_NONE,
             .min_bus = 66666667,
-            .max_bus = 133333333,
+            .max_bus = 150000000,
             .min_voltage = 1300,
             .max_voltage = 3500,
             .min_multi = 1.5,
@@ -16694,7 +16694,7 @@ const machine_t machines[] = {
             .min_voltage = 1300,
             .max_voltage = 3500,
             .min_multi = 1.5,
-            .max_multi = 8.0
+            .max_multi = 12.0
         },
         .bus_flags = MACHINE_PS2_AGP | MACHINE_BUS_USB,
         .flags = MACHINE_IDE_DUAL | MACHINE_SOUND | MACHINE_APM | MACHINE_ACPI | MACHINE_GAMEPORT | MACHINE_USB,
@@ -16774,18 +16774,18 @@ const machine_t machines[] = {
             .package = CPU_PKG_SOCKET370,
             .block = CPU_BLOCK_NONE,
             .min_bus = 66666667,
-            .max_bus = 150000000,
+            .max_bus = 133333333,
             .min_voltage = 1300,
             .max_voltage = 3500,
             .min_multi = 1.5,
-            .max_multi = 8.0
+            .max_multi = 16.0
         },
         .bus_flags = MACHINE_PS2_AGP | MACHINE_BUS_USB,
         .flags = MACHINE_IDE_DUAL | MACHINE_APM | MACHINE_ACPI | MACHINE_GAMEPORT | MACHINE_USB | MACHINE_SOUND,
         .ram = {
-            .min = 8192,
+            .min = 16384,
             .max = 1572864,
-            .step = 8192
+            .step = 16384
         },
         .nvrmask = 255,
         .kbc_device = NULL,
@@ -16826,7 +16826,7 @@ const machine_t machines[] = {
         .ram = {
             .min = 16384,
             .max = 3145728,
-            .step = 8192
+            .step = 16384
         },
         .nvrmask = 255,
         .kbc_device = NULL,
@@ -16867,7 +16867,7 @@ const machine_t machines[] = {
         .ram = {
             .min = 16384,
             .max = 4194304,
-            .step = 8192
+            .step = 16384
         },
         .nvrmask = 255,
         .kbc_device = NULL,
