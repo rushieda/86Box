@@ -16180,19 +16180,19 @@ const machine_t machines[] = {
         .cpu = {
             .package = CPU_PKG_SLOT1 | CPU_PKG_SLOT2,
             .block = CPU_BLOCK_NONE,
-            .min_bus = 100000000,
+            .min_bus = 66666667,
             .max_bus = 150000000,
             .min_voltage = 1800,
             .max_voltage = 3500,
-            .min_multi = 3.0,
+            .min_multi = 1.5,
             .max_multi = 8.0
         },
         .bus_flags = MACHINE_PS2_NOISA | MACHINE_BUS_USB,
         .flags = MACHINE_IDE_DUAL | MACHINE_APM | MACHINE_ACPI | MACHINE_USB,
         .ram = {
-            .min = 16384,
+            .min = 8192,
             .max = 2097152,
-            .step = 16384
+            .step = 8192
         },
         .nvrmask = 511,
         .kbc_device = NULL,
@@ -16210,9 +16210,9 @@ const machine_t machines[] = {
     /* Slot 1/Socket 370 machines */
     /* 440BX */
     /* OEM version of ECS P6BXT-A+ REV 1.3x/2.2x. Has a Winbond W83977EF Super
-    I/O chip with on-chip KBC with AMIKey-2 KBC firmware.*/
+    I/O chip with on-chip KBC, which has AMIKey-2 KBC firmware.*/
     {
-        .name = "[i440BX] Compaq ProSignia S316/318 (Intel)",
+        .name = "[i440BX] Compaq ProSignia S31x (Intel)",
         .internal_name = "prosignias31x_bx",
         .type = MACHINE_TYPE_SLOT1_370,
         .chipset = MACHINE_CHIPSET_VIA_APOLLO_PRO_133,
@@ -16223,9 +16223,9 @@ const machine_t machines[] = {
         .gpio_acpi_handler = NULL,
         .cpu = {
             .package = CPU_PKG_SLOT1 | CPU_PKG_SOCKET370,
-            .block = CPU_BLOCK(CPU_PENTIUMPRO, CPU_CYRIX3S), /* Instability issues with PPro, and garbled text in POST with Cyrix */
+            .block = CPU_BLOCK(CPU_PENTIUMPRO, CPU_CYRIX3S), /* Instability issues with PPro and garbled POST text with Cyrix */
             .min_bus = 66666667,
-            .max_bus = 100000000,
+            .max_bus = 120000000,
             .min_voltage = 1300,
             .max_voltage = 3500,
             .min_multi = 1.5,
@@ -16253,7 +16253,7 @@ const machine_t machines[] = {
     /* Has a Winbond W83977EF Super I/O chip with on-chip KBC with AMIKey-2 KBC
        firmware. */
     {
-        .name = "[i440BX] Tyan Trinity 371",
+        .name = "[i440BX] Tyan S1857A-B (Trinity 371)",
         .internal_name = "s1857",
         .type = MACHINE_TYPE_SLOT1_370,
         .chipset = MACHINE_CHIPSET_INTEL_440BX,
@@ -16270,7 +16270,7 @@ const machine_t machines[] = {
             .min_voltage = 1300,
             .max_voltage = 3500,
             .min_multi = 1.5,
-            .max_multi = 8.0
+            .max_multi = 7.0
         },
         .bus_flags = MACHINE_PS2_AGP | MACHINE_BUS_USB,
         .flags = MACHINE_IDE_DUAL | MACHINE_SOUND | MACHINE_APM | MACHINE_ACPI | MACHINE_USB,
@@ -16291,7 +16291,7 @@ const machine_t machines[] = {
         .snd_device = &es1373_onboard_device,
         .net_device = NULL
     },
-    /* VIA Apollo Pro */
+    /* VIA Apollo Pro 133 */
     /* Has a Winbond W83977EF Super I/O chip with on-chip KBC with AMIKey-2 KBC
        firmware. */
     {
@@ -16312,7 +16312,7 @@ const machine_t machines[] = {
             .min_voltage = 1300,
             .max_voltage = 3500,
             .min_multi = 1.5,
-            .max_multi = 8.0
+            .max_multi = 12.0
         },
         .bus_flags = MACHINE_PS2_AGP | MACHINE_BUS_USB,
         .flags = MACHINE_IDE_DUAL | MACHINE_SOUND | MACHINE_APM | MACHINE_ACPI | MACHINE_USB,
