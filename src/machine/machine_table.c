@@ -12651,10 +12651,10 @@ const machine_t machines[] = {
        ADD-X Systèmes. Still uses the same KBC chip and firmware. */
     {
         .name = "[i430VX] Biostar MB-8500TVX-A (ADD-X Systèmes OEM)",
-        .internal_name = "8500tvxa_add_x",
+        .internal_name = "8500tvxaaddx",
         .type = MACHINE_TYPE_SOCKET7,
         .chipset = MACHINE_CHIPSET_INTEL_430VX,
-        .init = machine_at_8500tvxa_add_x_init,
+        .init = machine_at_8500tvxaaddx_init,
         .p1_handler = NULL,
         .gpio_handler = NULL,
         .available_flag = MACHINE_AVAILABLE,
