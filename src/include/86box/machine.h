@@ -875,6 +875,7 @@ extern int machine_at_s370sba_init(const machine_t *);
 extern int machine_at_apas3_init(const machine_t *);
 extern int machine_at_cuv4xls_init(const machine_t *);
 extern int machine_at_6via90ap_init(const machine_t *);
+extern int machine_at_694a25a_init(const machine_t *);
 extern int machine_at_s1857_init(const machine_t *);
 extern int machine_at_p6bap_init(const machine_t *);
 extern int machine_at_p6bat_init(const machine_t *);

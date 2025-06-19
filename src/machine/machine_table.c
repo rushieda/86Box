@@ -17125,6 +17125,47 @@ const machine_t machines[] = {
         .snd_device = &cmi8738_onboard_device,
         .net_device = NULL
     },
+    /* Has the VIA VT82C686B southbridge with on-chip KBC identical to the VIA
+       VT82C42N. */
+    {
+        .name = "[VIA Apollo Pro 133A] Samsung 694A-25A (CAIRO-5)",
+        .internal_name = "694a25a",
+        .type = MACHINE_TYPE_SOCKET370,
+        .chipset = MACHINE_CHIPSET_VIA_APOLLO_PRO_133A,
+        .init = machine_at_694a25a_init,
+        .p1_handler = NULL,
+        .gpio_handler = NULL,
+        .available_flag = MACHINE_AVAILABLE,
+        .gpio_acpi_handler = NULL,
+        .cpu = {
+            .package = CPU_PKG_SOCKET370,
+            .block = CPU_BLOCK_NONE,
+            .min_bus = 66666667,
+            .max_bus = 150000000,
+            .min_voltage = 1300,
+            .max_voltage = 3500,
+            .min_multi = MACHINE_MULTIPLIER_FIXED,
+            .max_multi = MACHINE_MULTIPLIER_FIXED
+        },
+        .bus_flags = MACHINE_PS2_A97 | MACHINE_BUS_USB,
+        .flags = MACHINE_IDE_DUAL | MACHINE_AG | MACHINE_APM | MACHINE_ACPI | MACHINE_GAMEPORT | MACHINE_USB,
+        .ram = {
+            .min = 16384,
+            .max = 3145728,
+            .step = 8192
+        },
+        .nvrmask = 255,
+        .kbc_device = NULL,
+        .kbc_p1 = 0xff,
+        .gpio = 0xffffffff,
+        .gpio_acpi = 0xffffffff,
+        .device = NULL,
+        .fdc_device = NULL,
+        .sio_device = NULL,
+        .vid_device = NULL,
+        .snd_device = NULL,
+        .net_device = NULL
+    },
     /* SiS (5)600 */
     /* Has the SiS 600 chipset, which is a re-brand of the 5600, with
        on-chip KBC. */

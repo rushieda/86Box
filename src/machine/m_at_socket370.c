@@ -542,6 +542,40 @@ machine_at_6via90ap_init(const machine_t *model)
 }
 
 int
+machine_at_694a25a_init(const machine_t *model)
+{
+    int ret;
+
+    ret = bios_load_linear("roms/machines/694a25a/08BV.BIN",
+                           0x000c0000, 262144, 0);
+
+    if (bios_only || !ret)
+        return ret;
+
+    machine_at_common_init_ex(model, 2);
+
+    pci_init(PCI_CONFIG_TYPE_1);
+    pci_register_slot(0x00, PCI_CARD_NORTHBRIDGE, 0, 0, 0, 0);
+    pci_register_slot(0x07, PCI_CARD_SOUTHBRIDGE, 1, 2, 3, 0);
+    pci_register_slot(0x0E, PCI_CARD_NORMAL,      1, 2, 3, 0);
+    pci_register_slot(0x0F, PCI_CARD_NORMAL,      2, 3, 0, 1);
+    pci_register_slot(0x10, PCI_CARD_NORMAL,      3, 0, 1, 2);
+    pci_register_slot(0x11, PCI_CARD_NORMAL,      0, 1, 2, 3);
+    pci_register_slot(0x12, PCI_CARD_NORMAL,      2, 3, 4, 1);
+    pci_register_slot(0x01, PCI_CARD_AGPBRIDGE,   1, 2, 3, 4);
+    device_add(&via_apro133a_device);
+    device_add(&via_vt82c686a_device);
+    device_add(&keyboard_ps2_ami_pci_device);
+    device_add(&winbond_flash_w29c020_device);
+    spd_register(SPD_TYPE_SDRAM, 0x7, 1024);
+
+    if (sound_card_current[0] == SOUND_INTERNAL)
+        device_add(&es1373_onboard_device);
+
+    return ret;
+}
+
+int
 machine_at_7sbb_init(const machine_t *model)
 {
     int ret;
